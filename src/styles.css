@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: Roboto;
+}
+
+:root{
+    --cor_principal: #2E7D32;    /* Verde natureza */
+    --cor_secundaria: #0288D1;   /* Azul céu */
+    --cor_destaque: #F57C00;     /* Laranja energia */
+    --cor_fundo: #F5F7F2;        /* Branco esverdeado */
+    --cor_texto: #263238;        /* Grafite */
+    --cor_branca: #FFFFFF;       /* Branco */
+    --cor_amarela: #FBC02D;      /* Amarelo sol */
+    --cor_terra: #6D4C41;        /* Marrom terra */
+}
