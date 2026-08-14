@@ -41,6 +41,22 @@ export class AtletaComponent {
     pessoaAtleta.uf = this.uf
 
     this.atletaService.adicionar(pessoaAtleta)
+
+    this.atletaService.listar()
+  
+    this.limparAtributos()
+  }
+
+  limparLimpar(){
+    this.id: number = 0 
+    this.nome: string = ''
+    this.sexo: string = ''
+    this.cep: number = 0
+    this.cpf: number = 0 
+    this.ruaLogradouro: string = ''
+    this.bairro: string = ''
+    this.cidade: string = ''
+    this.uf: string = ''
   }
 
 }
