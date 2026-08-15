@@ -12,6 +12,7 @@ import { Pessoa } from '../../models/Pessoa';
 })
 export class AtletaComponent {
   //DECLARAÇÃO DOS ATRIBUTOS DO COMPONENTE
+  id = 0
   nome = ''
   cpf = 0
   sexo = ''
@@ -47,16 +48,16 @@ export class AtletaComponent {
     this.limparAtributos()
   }
 
-  limparLimpar(){
-    this.id: number = 0 
-    this.nome: string = ''
-    this.sexo: string = ''
-    this.cep: number = 0
-    this.cpf: number = 0 
-    this.ruaLogradouro: string = ''
-    this.bairro: string = ''
-    this.cidade: string = ''
-    this.uf: string = ''
+  limparAtributos(){
+    this.id = 0;
+    this.nome = '';
+    this.sexo = '';
+    this.cep = 0;
+    this.cpf = 0;
+    this.ruaLogradouro = '';
+    this.bairro = '';
+    this.cidade = '';
+    this.uf = '';
   }
 
 }
