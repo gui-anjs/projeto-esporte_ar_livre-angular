@@ -7,7 +7,8 @@
         <input type="date" name="data" [(ngModel)]="data" id="data" class="input02" required>
 
         <label for="opcoes-distancia">Distâncias Disponíveis:</label>
-        <div class="opcoes-distancia">
+    <div class="opcoes-distancia">
+        <div>
             <input type="checkbox" name="dist5k" [(ngModel)]="dist5k" id="dist5k">
             <label for="dist5k">5 km</label>
 
@@ -17,6 +18,7 @@
             <input type="checkbox" name="dist25k" [(ngModel)]="dist25k" id="dist25k">
             <label for="dist25k">25 km</label>
         </div>
+    </div>
 
         <div id="div-btns">
             <button type="submit" id="btnAdd"> Cadastrar Corrida</button>
