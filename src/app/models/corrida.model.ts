@@ -4,5 +4,5 @@ export interface Corrida {
     data: string;
     dist5k: boolean;
     dist10k: boolean;
-    dist21k: boolean;
+    dist25k: boolean;
   }

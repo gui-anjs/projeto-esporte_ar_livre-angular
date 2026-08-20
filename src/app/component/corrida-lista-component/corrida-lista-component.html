@@ -1,0 +1,81 @@
+<main id="geral">
+
+    <h1>Lista de Corridas</h1>
+  
+    <div id="lista-corridas">
+  
+      @for (corrida of listaCorridas(); track corrida.id) {
+  
+        <div class="card-corrida">
+  
+          <h2>
+            <h2>
+              {{ corrida.descricao_corrida || corrida.descricao || corrida.nome }}
+            </h2>
+          </h2>
+  
+          <p>
+            <strong>ID:</strong>
+            {{ corrida.id }}
+          </p>
+  
+          <p>
+            <strong>Data:</strong>
+            {{ corrida.data || corrida.dataCorrida || corrida.data_corrida }}
+          </p>
+  
+          <p>
+            <strong>Distância:</strong>
+          
+            @if (corrida.distancia5km) {
+              5 km
+            }
+          
+            @if (corrida.distancia10km) {
+              @if (corrida.distancia5km) {
+                , 
+              }
+              10 km
+            }
+          
+            @if (corrida.distancia25km) {
+              @if (corrida.distancia5km || corrida.distancia10km) {
+                ,
+              }
+              25 km
+            }
+          
+            @if (
+              !corrida.distancia5km &&
+              !corrida.distancia10km &&
+              !corrida.distancia25km
+            ) {
+              Não informada
+            }
+          </p>
+
+          <div class="acoes-corrida">
+
+            <button
+              type="button"
+              class="btn-editar"
+              (click)="editarCorrida(corrida)">
+              Editar
+            </button>
+          
+            <button
+              type="button"
+              class="btn-excluir"
+              (click)="excluirCorrida(corrida)">
+              Excluir
+            </button>
+          
+          </div>
+  
+        </div>
+  
+      }
+  
+    </div>
+  
+  </main>

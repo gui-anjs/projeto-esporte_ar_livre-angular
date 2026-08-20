@@ -1,44 +1,213 @@
-#div-lista{
-    width: 1000px;
-    padding: 25px;
-    margin: 20px auto;
-    color: var( --cor-secundaria);
+/* ==============================
+   LISTA DE ATLETAS
+   ============================== */
+
+   #div-lista {
+    width: 90%;
+    max-width: 1100px;
+
+    margin: 40px auto;
+    padding: 30px;
+
+    background-color: #ffffff;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+
+    color: #020100;
 }
 
-h2{
-    margin: 30px 0px;
+/* TÍTULO */
+
+#div-lista h2 {
+    margin: 0 0 30px 0;
+
+    text-align: center;
+
+    font-size: 30px;
+    font-weight: 700;
 }
 
-.item-atletas{
-    margin: 20px 0px;
-    padding: 10px;
+/* LISTA */
+
+#lista-atletas {
+    width: 100%;
+}
+
+/* CADA ATLETA */
+
+.item-atletas {
+    width: 100%;
+
+    min-height: 65px;
+
+    margin: 12px 0;
+    padding: 15px 18px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
+
+    background-color: #f8f9f7;
+
+    border: 1px solid #e1e1e1;
+
+    border-radius: 8px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
 }
 
-/*FORMATAÇÃO DOS BOTÕES*/
-.lnk-editar, .lnk-excluir {
+.item-atletas:hover {
+    transform: translateY(-2px);
+
+    background-color: #ffffff;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* DADOS DO ATLETA */
+
+.dados-atleta {
+    flex: 1;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    line-height: 1.6;
+
+    word-break: break-word;
+}
+
+/* ÁREA DOS LINKS */
+
+.links-lista {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    flex-shrink: 0;
+}
+
+/* BOTÕES */
+
+.lnk-editar,
+.lnk-excluir {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 90px;
+
+    padding: 10px 15px;
+
+    border-radius: 6px;
+
     text-decoration: none;
+
     text-transform: uppercase;
-    width: 100px;
-    text-align: center;
-    margin: 8px 0px;
-    transition: opacity 0.5s ease;
-    letter-spacing: 3px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
     cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
 }
 
-a:hover {
-    opacity: 0.5;
+.lnk-editar:hover,
+.lnk-excluir:hover {
+    transform: translateY(-2px);
+    opacity: 0.85;
 }
+
+/* EDITAR */
 
 .lnk-editar {
-    margin-right: 10px;
-    color: var(  --cor-primaria);
+    background-color: #049d09;
+
+    color: #ffffff;
 }
 
+/* EXCLUIR */
+
 .lnk-excluir {
-    margin-left: 10px;
-    color: var( --cor-botao2);
+    background-color: #b60000;
+
+    color: #ffffff;
+}
+
+/* NENHUM REGISTRO */
+
+.div-item-pessoa {
+    padding: 30px;
+
+    text-align: center;
+
+    font-size: 18px;
+
+    color: #666666;
+}
+
+/* ==============================
+   RESPONSIVIDADE
+   ============================== */
+
+@media (max-width: 800px) {
+
+    #div-lista {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .item-atletas {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 15px;
+    }
+
+    .dados-atleta {
+        width: 100%;
+
+        text-align: left;
+    }
+
+    .links-lista {
+        width: 100%;
+    }
+
+    .lnk-editar,
+    .lnk-excluir {
+        flex: 1;
+    }
+}
+
+@media (max-width: 500px) {
+
+    #div-lista h2 {
+        font-size: 24px;
+    }
+
+    .dados-atleta {
+        font-size: 14px;
+    }
+
+    .links-lista {
+        flex-direction: column;
+    }
+
+    .lnk-editar,
+    .lnk-excluir {
+        width: 100%;
+    }
 }

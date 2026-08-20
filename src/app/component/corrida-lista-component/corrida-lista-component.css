@@ -1,0 +1,177 @@
+/* ==============================
+   LISTA DE CORRIDAS
+   ============================== */
+
+   #geral {
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* TÍTULO */
+
+h1 {
+    width: 100%;
+    max-width: 1100px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* CONTAINER DOS CARDS */
+
+#lista-corridas {
+    width: 100%;
+    max-width: 1100px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* CARD */
+
+.card-corrida {
+    background-color: #ffffff;
+
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+
+    padding: 25px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.card-corrida:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* NOME DA CORRIDA */
+
+.card-corrida h2 {
+    margin-bottom: 18px;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    text-align: center;
+}
+
+/* INFORMAÇÕES */
+
+.card-corrida p {
+    margin-bottom: 12px;
+
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.card-corrida strong {
+    font-weight: 700;
+}
+
+/* ÁREA DOS BOTÕES */
+
+.acoes-corrida {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+/* BOTÕES */
+
+.acoes-corrida button {
+    border: none;
+
+    padding: 10px 20px;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.acoes-corrida button:hover {
+    transform: scale(1.05);
+
+    opacity: 0.9;
+}
+
+/* BOTÃO EDITAR */
+
+.btn-editar {
+    background-color: #049d09;
+    color: #ffffff;
+}
+
+/* BOTÃO EXCLUIR */
+
+.btn-excluir {
+    background-color: #b60000;
+    color: #ffffff;
+}
+
+/* ==============================
+   RESPONSIVIDADE
+   ============================== */
+
+/* TABLET */
+
+@media (max-width: 900px) {
+
+    #lista-corridas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+/* CELULAR */
+
+@media (max-width: 600px) {
+
+    #geral {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    #lista-corridas {
+        grid-template-columns: 1fr;
+    }
+
+    .card-corrida {
+        padding: 20px;
+    }
+
+    .acoes-corrida {
+        flex-direction: column;
+    }
+
+    .acoes-corrida button {
+        width: 100%;
+    }
+
+}
