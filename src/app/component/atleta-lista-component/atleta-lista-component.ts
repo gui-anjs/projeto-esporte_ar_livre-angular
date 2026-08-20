@@ -1,4 +1,113 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { AtletaService } from '../../service/atleta-service';
+import { Pessoa } from '../../models/Pessoa';
+
+@Component({
+  selector: 'app-atleta-lista-component',
+  imports: [],
+  templateUrl: './atleta-lista-component.html',
+  styleUrl: './atleta-lista-component.css',
+})
+export class AtletaListaComponent implements OnInit {
+
+  listaAtletas = signal<Pessoa[]>([]);
+
+  constructor(
+    private http: AtletaService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.carregaAtletas();
+  }
+
+  // ==========================
+  // LISTAR ATLETAS
+  // ==========================
+  carregaAtletas(): void {
+
+    this.http.listarAtletas().subscribe({
+      next: (dados: Pessoa[]) => {
+        this.listaAtletas.set(dados);
+        console.table(dados);
+      },
+
+      error: (erro) => {
+        console.error('Erro ao listar atletas:', erro);
+      }
+    });
+
+  }
+
+  // ==========================
+  // EDITAR ATLETA
+  // ==========================
+  buscarPessoa(pessoa: Pessoa): void {
+
+    console.log('Editando atleta:', pessoa);
+
+    this.router.navigate([
+      '/cadastroatleta',
+      pessoa.id
+    ]);
+
+  }
+
+  // ==========================
+  // EXCLUIR ATLETA
+  // ==========================
+  excluirAtleta(pessoa: Pessoa): void {
+
+    if (!pessoa.id) {
+      console.error('Atleta sem ID.');
+      return;
+    }
+
+    const confirmar = confirm(
+      `Deseja excluir o atleta "${pessoa.nome}"?`
+    );
+
+    if (!confirmar) {
+      return;
+    }
+
+    this.http.excluirAtleta(pessoa).subscribe({
+
+      next: () => {
+
+        console.log(
+          'Atleta excluído com sucesso!'
+        );
+
+        this.carregaAtletas();
+      },
+
+      error: (erro) => {
+
+        console.error(
+          'Erro ao excluir atleta:',
+          erro
+        );
+
+      }
+
+    });
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*import { Component, signal } from '@angular/core';
 import { AtletaService } from '../../service/atleta-service';
 import { Pessoa } from '../../models/Pessoa';
 import { Router } from '@angular/router';
@@ -79,3 +188,4 @@ export const routes: Routes = [
     },
     
 ];
+*/
