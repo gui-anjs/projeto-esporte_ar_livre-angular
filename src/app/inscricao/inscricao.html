@@ -1,0 +1,28 @@
+<div id="div-form-inscricao">
+  <form id="form-inscricao" (submit)="salvarInscricao()">
+      
+      <label for="atleta">Atleta</label>
+      <select name="atleta" [(ngModel)]="atletaId" id="atleta" class="input01" required>
+          <option value="" disabled selected>Selecione um atleta</option>
+          <option *ngFor="let atleta of listaAtletas" [value]="atleta.id">{{ atleta.nome }}</option>
+      </select>
+
+      <label for="corrida">Corrida</label>
+      <select name="corrida" [(ngModel)]="corridaId" id="corrida" class="input01" required>
+          <option value="" disabled selected>Selecione uma corrida</option>
+          <option *ngFor="let corrida of listaCorridas" [value]="corrida.id">{{ corrida.descricao }}</option>
+      </select>
+
+      <label for="dataInscricao">Data da Inscrição:</label>
+      <input type="date" name="dataInscricao" [(ngModel)]="dataInscricao" id="dataInscricao" class="input02" required>
+
+      <label for="statusPagamento">Status do Pagamento</label>
+      <input type="text" name="statusPagamento" [(ngModel)]="statusPagamento" id="statusPagamento" class="input01" required placeholder="Ex: Pendente ou Pago">
+
+      <div id="div-btns">
+          <button type="submit" id="btnAdd"> Cadastrar </button>
+          <button type="reset" id="btnLimpar"> Limpar </button>
+      </div>
+
+  </form>
+</div>
