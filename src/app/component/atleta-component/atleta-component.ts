@@ -15,6 +15,7 @@ export class AtletaComponent {
   // DECLARAÇÃO DOS ATRIBUTOS DO COMPONENTE
   id = 0;
   nome = '';
+  dataNascimento = '';
   cpf = 0;
   sexo = '';
   cep = 0;
@@ -68,6 +69,7 @@ export class AtletaComponent {
         this.nome = objAtleta.nome;
         this.cpf = objAtleta.cpf;
         this.sexo = objAtleta.sexo;
+        this.dataNascimento = objAtleta.dataNascimento;
         this.cep = objAtleta.cep;
         this.rua_logradouro = objAtleta.ruaLogradouro;
         this.bairro = objAtleta.bairro;
@@ -91,6 +93,7 @@ export class AtletaComponent {
     pessoaAtleta.nome = this.nome;
     pessoaAtleta.cpf = this.cpf;
     pessoaAtleta.sexo = this.sexo;
+    pessoaAtleta.dataNascimento = this.dataNascimento;
     pessoaAtleta.cep = this.cep;
     pessoaAtleta.ruaLogradouro = this.rua_logradouro;
     pessoaAtleta.bairro = this.bairro;
@@ -156,6 +159,7 @@ export class AtletaComponent {
     this.nome = '';
     this.cpf = 0;
     this.sexo = '';
+    this.dataNascimento = '';
     this.cep = 0;
     this.rua_logradouro = '';
     this.bairro = '';

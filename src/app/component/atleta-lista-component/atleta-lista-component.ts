@@ -95,6 +95,36 @@ export class AtletaListaComponent implements OnInit {
     });
 
   }
+
+  calcularIdade(dataNascimento: string): number {
+
+    const nascimento = new Date(
+      dataNascimento + 'T00:00:00'
+    );
+  
+    const hoje = new Date();
+  
+    let idade =
+      hoje.getFullYear() -
+      nascimento.getFullYear();
+  
+    const mesAtual = hoje.getMonth();
+    const diaAtual = hoje.getDate();
+  
+    const mesNascimento = nascimento.getMonth();
+    const diaNascimento = nascimento.getDate();
+  
+    if (
+      mesAtual < mesNascimento ||
+      (mesAtual === mesNascimento &&
+        diaAtual < diaNascimento)
+    ) {
+      idade--;
+    }
+  
+    return idade;
+  
+  }
 }
 
 

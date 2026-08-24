@@ -1,4 +1,5 @@
 <div id="div-form-inscricao">
+
   <form id="form-inscricao" (submit)="salvarInscricao()">
       
       <label for="atleta">Atleta</label>
@@ -10,7 +11,9 @@
       <label for="corrida">Corrida</label>
       <select name="corrida" [(ngModel)]="corridaId" id="corrida" class="input01" required>
           <option value="" disabled selected>Selecione uma corrida</option>
-          <option *ngFor="let corrida of listaCorridas" [value]="corrida.id">{{ corrida.descricao }}</option>
+          <option *ngFor="let corrida of listaCorridas" [value]="corrida.id">
+            {{ corrida.descricao_corrida }}
+        </option>
       </select>
 
       <label for="dataInscricao">Data da Inscrição:</label>

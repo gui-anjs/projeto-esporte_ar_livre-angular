@@ -33,7 +33,13 @@ export const routes: Routes = [
   },
 
 {
-    path: 'lista-atletas', component:AtletaListaComponent
+    path: 'lista-atletas', 
+    component:AtletaListaComponent
+},
+
+{
+  path: 'corridas',
+  component: CadastroDeCorrida
 },
 
 {
