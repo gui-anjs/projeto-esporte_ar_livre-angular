@@ -96,11 +96,17 @@ export class AtletaListaComponent implements OnInit {
 
   }
 
-  calcularIdade(dataNascimento: string): number {
+  calcularIdade(dataNascimento: string): number | string {
 
-    const nascimento = new Date(
-      dataNascimento + 'T00:00:00'
-    );
+    if (!dataNascimento) {
+      return 'Não informada';
+    }
+  
+    const nascimento = new Date(dataNascimento + 'T00:00:00');
+  
+    if (isNaN(nascimento.getTime())) {
+      return 'Não informada';
+    }
   
     const hoje = new Date();
   
@@ -123,7 +129,6 @@ export class AtletaListaComponent implements OnInit {
     }
   
     return idade;
-  
   }
 }
 
