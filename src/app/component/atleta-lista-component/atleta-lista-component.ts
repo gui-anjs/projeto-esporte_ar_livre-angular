@@ -9,6 +9,234 @@ import { Pessoa } from '../../models/Pessoa';
   templateUrl: './atleta-lista-component.html',
   styleUrl: './atleta-lista-component.css',
 })
+
+export class AtletaListaComponent implements OnInit {
+
+  listaAtletas = signal<Pessoa[]>([]);
+
+  constructor(
+    private http: AtletaService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.carregaAtletas();
+  }
+
+
+  // ==========================
+  // LISTAR ATLETAS
+  // ==========================
+
+  carregaAtletas(): void {
+
+    this.http.listarAtletas().subscribe({
+
+      next: (dados: Pessoa[]) => {
+
+        const atletasCorrigidos = dados.map((atleta: any) => {
+
+          return {
+            ...atleta,
+
+            dataNascimento:
+              atleta.dataNascimento ||
+              atleta.data_nascimento ||
+              ''
+          };
+
+        });
+
+        console.table(atletasCorrigidos);
+
+        this.listaAtletas.set(atletasCorrigidos);
+
+      },
+
+      error: (erro) => {
+
+        console.error(
+          'Erro ao listar atletas:',
+          erro
+        );
+
+      }
+
+    });
+
+  }
+
+
+  // ==========================
+  // EDITAR ATLETA
+  // ==========================
+
+  buscarPessoa(pessoa: Pessoa): void {
+
+    console.log('Editando atleta:', pessoa);
+
+    this.router.navigate([
+      '/cadastroatleta',
+      pessoa.id
+    ]);
+
+  }
+
+
+  // ==========================
+  // EXCLUIR ATLETA
+  // ==========================
+
+  excluirAtleta(pessoa: Pessoa): void {
+
+    if (!pessoa.id) {
+
+      console.error('Atleta sem ID.');
+
+      return;
+
+    }
+
+    const confirmar = confirm(
+      `Deseja excluir o atleta "${pessoa.nome}"?`
+    );
+
+    if (!confirmar) {
+
+      return;
+
+    }
+
+    this.http.excluirAtleta(pessoa).subscribe({
+
+      next: () => {
+
+        console.log(
+          'Atleta excluído com sucesso!'
+        );
+
+        this.carregaAtletas();
+
+      },
+
+      error: (erro) => {
+
+        console.error(
+          'Erro ao excluir atleta:',
+          erro
+        );
+
+      }
+
+    });
+
+  }
+
+
+  // ==========================
+  // CALCULAR IDADE
+  // ==========================
+
+  calcularIdade(dataNascimento: string): number | string {
+
+    if (!dataNascimento) {
+
+      return 'Não informada';
+
+    }
+
+    let nascimento: Date;
+
+
+    // Formato YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dataNascimento)) {
+
+      const partes = dataNascimento.split('-');
+
+      const ano = Number(partes[0]);
+      const mes = Number(partes[1]) - 1;
+      const dia = Number(partes[2]);
+
+      nascimento = new Date(
+        ano,
+        mes,
+        dia
+      );
+
+    } else {
+
+      nascimento = new Date(dataNascimento);
+
+    }
+
+
+    // Verifica se a data é inválida
+    if (isNaN(nascimento.getTime())) {
+
+      return 'Não informada';
+
+    }
+
+
+    const hoje = new Date();
+
+    let idade =
+      hoje.getFullYear() -
+      nascimento.getFullYear();
+
+
+    const mesAtual = hoje.getMonth();
+
+    const diaAtual = hoje.getDate();
+
+    const mesNascimento =
+      nascimento.getMonth();
+
+    const diaNascimento =
+      nascimento.getDate();
+
+
+    // Verifica se ainda não fez aniversário
+    if (
+      mesAtual < mesNascimento ||
+      (
+        mesAtual === mesNascimento &&
+        diaAtual < diaNascimento
+      )
+    ) {
+
+      idade--;
+
+    }
+
+
+    return idade;
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/*import { Component, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { AtletaService } from '../../service/atleta-service';
+import { Pessoa } from '../../models/Pessoa';
+
+@Component({
+  selector: 'app-atleta-lista-component',
+  imports: [],
+  templateUrl: './atleta-lista-component.html',
+  styleUrl: './atleta-lista-component.css',
+})
 export class AtletaListaComponent implements OnInit {
 
   listaAtletas = signal<Pessoa[]>([]);
@@ -28,15 +256,40 @@ export class AtletaListaComponent implements OnInit {
   carregaAtletas(): void {
 
     this.http.listarAtletas().subscribe({
+  
       next: (dados: Pessoa[]) => {
-        this.listaAtletas.set(dados);
-        console.table(dados);
+  
+        const atletasCorrigidos = dados.map((atleta: any) => {
+  
+          return {
+            ...atleta,
+  
+            dataNascimento:
+              atleta.dataNascimento ||
+              atleta.data_nascimento ||
+              ''
+          };
+  
+        });
+  
+        console.table(atletasCorrigidos);
+  
+        this.listaAtletas.set(atletasCorrigidos);
+  
       },
-
+  
       error: (erro) => {
-        console.error('Erro ao listar atletas:', erro);
+  
+        console.error(
+          'Erro ao listar atletas:',
+          erro
+        );
+  
       }
+  
     });
+  
+  }
 
   }
 
@@ -102,7 +355,24 @@ export class AtletaListaComponent implements OnInit {
       return 'Não informada';
     }
   
-    const nascimento = new Date(dataNascimento + 'T00:00:00');
+    let nascimento: Date;
+  
+    // Formato: YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dataNascimento)) {
+  
+      const partes = dataNascimento.split('-');
+  
+      const ano = Number(partes[0]);
+      const mes = Number(partes[1]) - 1;
+      const dia = Number(partes[2]);
+  
+      nascimento = new Date(ano, mes, dia);
+  
+    } else {
+  
+      nascimento = new Date(dataNascimento);
+  
+    }
   
     if (isNaN(nascimento.getTime())) {
       return 'Não informada';
@@ -122,105 +392,14 @@ export class AtletaListaComponent implements OnInit {
   
     if (
       mesAtual < mesNascimento ||
-      (mesAtual === mesNascimento &&
-        diaAtual < diaNascimento)
+      (
+        mesAtual === mesNascimento &&
+        diaAtual < diaNascimento
+      )
     ) {
       idade--;
     }
   
     return idade;
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-/*import { Component, signal } from '@angular/core';
-import { AtletaService } from '../../service/atleta-service';
-import { Pessoa } from '../../models/Pessoa';
-import { Router } from '@angular/router';
-
-@Component({
-  selector: 'app-atleta-lista-component',
-  imports: [],
-  templateUrl: './atleta-lista-component.html',
-  styleUrl: './atleta-lista-component.css',
-})
-export class AtletaListaComponent {
-
-  //DECLARAÇÃO ARRAY DO TIPO PESSOA
-  //listaAtletas: Atleta[] = []
-  listaAtletas = signal<Pessoa[]>([])
-
-  //DECLARAÇÃO CONSTRUTOR
-  constructor(private router: Router, private http: AtletaService) { }
-
-  //EXECUTAR INSTRUÇÕES AO CARREGAR CRIAR O COMPONENTE
-  ngOnInit() {
-    this.listarAtletas()
-  }
-
-  //LISTAR OS ATLETAS
-  listarAtletas() {
-    this.listaAtletas.set(this.http.listar());
-  }
-
-  //EXCLUIR ATLETA
-  excluirAtleta(pessoa: Pessoa){
-    if(confirm(`Deseja excluir ${pessoa.nome} da competição? `)){
-      this.http.remover2(pessoa)
-      // Delete o .subscribe(...) e deixe assim:
-this.http.remover2(pessoa);
-this.listaAtletas.set(this.http.listar()); // Correctly updates the signal's value // Atualiza a lista logo em seguida
-
-    }
-    this.ngOnInit()
-  }
-
-  //ALTERAR DADOS
-  buscarPessoa(idAtleta: Pessoa){
-    this.router.navigate(['/cadastroatleta', idAtleta])
-  }
-
-  
-}//FIM COMPONENT AtletaListaComponent
-import { Routes } from '@angular/router';
-import { HomeComponent } from '../home-component/home-component';
-import { AtletaComponent } from '../atleta-component/atleta-component';
-
-export const routes: Routes = [
-    {
-        path:'',
-        redirectTo:"/home",
-        pathMatch: 'full'
-    },
-    {
-        path:"home",
-        component:HomeComponent
-    },
-    {
-        path:"cadastroatleta",
-        component:AtletaComponent
-    },
-    {
-        path:"cadastroatleta/:id",
-        component:AtletaComponent
-    },
-    {
-        path:"listaatleta",
-        component:AtletaListaComponent
-    },
-    {
-        path:"cadastrocorrida",
-        component:AtletaComponent
-    },
-    
-];
-*/
+}*/
