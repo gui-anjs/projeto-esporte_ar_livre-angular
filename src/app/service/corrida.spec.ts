@@ -1,16 +1,23 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Corrida } from './corrida';
+import { CorridaService } from './corrida';
 
-describe('Corrida', () => {
-  let service: Corrida;
+describe('CorridaService', () => {
+
+  let service: CorridaService;
 
   beforeEach(() => {
+
     TestBed.configureTestingModule({});
-    service = TestBed.inject(Corrida);
+
+    service = TestBed.inject(CorridaService);
+
   });
 
-  it('should be created', () => {
+  it('deve criar o serviço', () => {
+
     expect(service).toBeTruthy();
+
   });
+
 });
